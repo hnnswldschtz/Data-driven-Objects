@@ -15,6 +15,7 @@ unsigned long lastDrumHitR=0;
 
 //void drumstickL(int pinNr, int freq, int on_time, bool on=1);
 //void drumstickR(int pinNr, int freq, int on_time, bool on=1);
+// TEST TEST TEST TEST 
 
 float tempo=1;
 
