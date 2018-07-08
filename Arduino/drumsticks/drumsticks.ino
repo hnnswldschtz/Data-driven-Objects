@@ -1,15 +1,19 @@
-
+#include    <Servo.h>      //Servo library
+ 
+ 
+Servo servo_0;
+Servo servo_1;//initialize a servo object for the connected servo  
 const int drumPinL = 3;
 const int drumPinR = 5;
 
 int shift = 50; // in percent of the Left Drumsick Frequency/Perdiod
 int R_offset=0;
 
-int frequencyL=4; //in Hz approx range: 1 - 7
+int frequencyL=1; //in Hz approx range: 1 - 7
 int frequencyR=1;
 
-int on_timeL=10; // in ms needs to be experimented
-int on_timeR= 300;
+int on_timeL=100; // in ms needs to be experimented
+int on_timeR= 100;
 bool first=1;
 unsigned long lastDrumHitR=0;
 
@@ -18,13 +22,18 @@ unsigned long lastDrumHitR=0;
 // TEST TEST TEST TEST 
 
 float tempo=1;
+int a;
 
 
 
 void setup(){
 Serial.begin(9600);
-pinMode(drumPinL, OUTPUT);
-pinMode(drumPinR, OUTPUT);
+Serial.setTimeout(20);
+//pinMode(drumPinL, OUTPUT);
+//pinMode(drumPinR, OUTPUT);
+
+servo_0.attach(3); 
+servo_1.attach(5); 
 
 R_offset = map(shift,0,100,0,1000/frequencyL);
 Serial.print ("R_offset:  ");
@@ -35,8 +44,27 @@ Serial.print (R_offset);
 void loop(){
 
   //frequencyR=frequencyL; // synchronizer
-  while (Serial.available() >0){
-  tempo=Serial.parseFloat();}
+//  while (Serial.available() >0){
+//  tempo=Serial.parseFloat();}
+
+
+//  if (Serial.read() == 'a') {
+//    // delay(1);
+//    a = Serial.parseInt();
+//    //Serial.println(a);
+//
+////     tempo= map(a.toFloat(),0,100,2.0,0.4);
+////  Serial.print("a: ");
+////  Serial.println(a);
+////  Serial.print("tempo : ");
+////  Serial.println(tempo);
+//
+//   
+//  }
+
+ 
+
+ 
   drumstickL(drumPinL, frequencyL, on_timeL, true,tempo);
 
   //if (millis() - lastDrumHitR>R_offset) {
@@ -59,13 +87,15 @@ void drumstickL(int pinNr, int freq, int on_time, bool on,float tempo){
 
   if (on){
       if (drum_state==0 ){
-        digitalWrite(pinNr,HIGH);
+        //digitalWrite(pinNr,HIGH);
+        servo_0.write(180);
         drum_state=1;
         drum_changeTime=millis();
         
       }
     else if (drum_state==1&&millis()-drum_changeTime>on_time){
-      digitalWrite(pinNr,LOW);
+      //digitalWrite(pinNr,LOW);
+       servo_0.write(140);
       drum_state=2;
     }
       else if (drum_state==2&&millis()-drum_changeTime>full_cycle * tempo){
@@ -83,15 +113,17 @@ void drumstickR(int pinNr, int freq, int on_time, bool on, float tempo){
 
 
   if (on){
-      if (drum_state==0 ){
-        digitalWrite(pinNr,HIGH);
+      if (drum_state==0 && millis() - lastDrumHitR>R_offset){
+        //digitalWrite(pinNr,HIGH);
+         servo_1.write(180);
         drum_state=1;
         drum_changeTime=millis();
         
-        //lastDrumHitR=millis();
+        lastDrumHitR=millis();
       }
     else if (drum_state==1&&millis()-drum_changeTime>on_time){
-      digitalWrite(pinNr,LOW);
+      //digitalWrite(pinNr,LOW);
+      servo_1.write(140);
       drum_state=2;
     }
       else if (drum_state==2&&millis()-drum_changeTime>full_cycle * tempo){

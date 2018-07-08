@@ -40,7 +40,8 @@ bool input_india = false;
 #define RS485Tx  2 // RS485 Transmit pin  (DI)
 #define RS485inout  8 // RS485 Transmit or Receive status  (DE)
 // Ceonnect DE  & RE
-// Connect the A's and the B's with the other boards 
+// Connect the A's and the B's with the other boards
+// GND with arduion GND and Vcc with 5v arduino
 
 
 
@@ -113,14 +114,16 @@ void loop()
       Serial.print('a');
       delay(1);
       txValue01 = RS485.read();
+      Serial.print(txValue01);
       delay(1);
       txValue02 = RS485.read();
+      Serial.print(txValue02);
       delay(1);
 
 
       if (RS485.read() == 'b')
       {
-        //Serial.println('b');
+        Serial.println('b');
 
         if (txValue01 == 0) {
           countryId_us = txValue02;
@@ -166,21 +169,7 @@ void loop()
 
 
 
-  //    Serial.println(values[0]);
-  //    Serial.println(values[1]);
-  //    Serial.println(currentValue);
-  //num=Serial.parseInt();
-
-  //htmlInput= Serial.read();
-  //Serial.println("Testing Serial");
-  //Serial.println(num);
-
-  //num=int((map(num,0,100,1000,50)));
-  //
-  //Thailand
-
-
-  //us --> china Action
+ 
 
 
   if (countryId_us == 1) angle_us = 108;
@@ -236,7 +225,7 @@ void loop()
 
 
 
-// ###################################### US ################################
+  // ###################################### US ################################
 
   //Serial.println(angle_us);
   if (input_us) {
@@ -245,13 +234,13 @@ void loop()
     if (action_us == 0) {
       //2000-0=2000
 
-      
+
       servo_rot_us.write(angle_us);
 
       delay(1000);
 
       servo_action_us.write(180);
-       delay(100);
+      delay(100);
       servo_action_us.write(140);
 
       delay(500);
@@ -284,7 +273,7 @@ void loop()
     }
 
 
-    
+
     input_us = false;
 
   }
@@ -298,7 +287,7 @@ void loop()
 
 
 
-//################################# India #######################################
+  //################################# India #######################################
 
 
   if (input_india) {
@@ -348,7 +337,7 @@ void loop()
 
     input_india = false;
 
-    
+
   }
 
 

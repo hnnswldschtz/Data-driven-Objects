@@ -8,6 +8,8 @@
 #define RS485Tx		7 // RS485 Transmit pin  (DI)
 #define RS485inout	5 // RS485 Transmit or Receive status  (DE)
 // connect  between DE and RE
+// Connect the A's and the B's with the other boards 
+// GND with arduion gnd and Vcc with 5v arduino
 #define RS485Transmit	HIGH
 #define RS485Receive	LOW
 #define ledPin			13
@@ -94,7 +96,7 @@ void loop()
     //delay(10);
 
     // Send back a modified value
-    RS485.write(RS485.read());
+    //RS485.write(RS485.read());
 
     // Wait for the transmission to complete.
     // This delay is dependent on the baud rate. To calculate:

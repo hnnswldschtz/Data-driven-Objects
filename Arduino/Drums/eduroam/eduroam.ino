@@ -175,7 +175,7 @@ int getVal(String id,String payload){
         //Serial.println(val);
 
         float floatVal=val.toFloat();
-        int floatPeriod=linear(floatVal,0,0.466,1000,100);
+        int floatPeriod=linear(floatVal,0,0.466,0,100);
         
        // Serial.print("Delay: ");
         //Serial.print(floatPeriod);

@@ -8,6 +8,7 @@
 #define RS485Tx   7 // RS485 Transmit pin  (DI)
 #define RS485inout  5 // RS485 Transmit or Receive status (DE)
 // Connect a cable betweeen DE and RE
+// Connect the A's and the B's with the other boards 
 
 // Connect the A's and the B's with the other boards 
 
@@ -232,9 +233,7 @@ void setup() /****** SETUP: RUNS ONCE ******/
 // -----------------------------------------------------------------
 // LOOP     LOOP     LOOP     LOOP     LOOP     LOOP     LOOP
 // -----------------------------------------------------------------
-byte buf1[] = {0,3};
-byte buf2[] = {0,6};
-byte buf3[] = {0,4};
+
 void loop()
 {
  
@@ -251,7 +250,7 @@ void loop()
 
   
   for (i = 0; i < 352; i++) {
-//  Serial.println(myPins[i]);
+
   
   if (j==0){
   RS485.write('a');
@@ -275,53 +274,5 @@ void loop()
   }
   
   
-  /*
   
-  RS485.write(buf1,2);
-  delay(2000);
-  RS485.write(buf2,2);
-  delay(2000);
-  RS485.write(buf3,2);
-  //RS485.write("");
-  delay(2000);*/
-  // Continually send the test string with a pause at the end
-  /*for (unsigned int cnt = 0; cnt < teststring.length(); cnt++) {
-
-    // Get the next character to send
-    txValue = teststring[cnt];
-    Serial.print("Sending:");Serial.println(char(txValue));
-
-    // Set the RS485 to transmit mode and send the value
-    digitalWrite(RS485inout, RS485Transmit);
-    RS485.write(txValue);
-
-    // small delay to allow transmission to complete
-    delay(1);
-
-    // Switch RS485 to receive mode
-    digitalWrite(RS485inout, RS485Receive);
-
-    // After each character is sent look for a received answer
-    if (RS485.available())
-    {
-      // LED flicker
-      digitalWrite(ledPin, HIGH);
-
-      // Read the incoming byte
-      rxValue = RS485.read();
-
-      // Display it on the Serial Monitor as a char (not an integer value)
-      Serial.print("                 Got back:"); Serial.println(char(rxValue));
-
-      // Turn off LED
-      digitalWrite(ledPin, LOW);  // Show activity
-    }
-
-    // Debugging delay so we can follow activity
-    delay(100);
-  }*/
-
-  // Entire string sent, longer delay between loops
-
-  //delay(1500);
 }
