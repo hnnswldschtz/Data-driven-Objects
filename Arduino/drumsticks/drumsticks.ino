@@ -9,7 +9,7 @@ const int drumPinR = 5;
 int shift = 50; // in percent of the Left Drumsick Frequency/Perdiod
 int R_offset=0;
 
-int frequencyL=1; //in Hz approx range: 1 - 7
+int frequencyL=4; //in Hz approx range: 1 - 7
 int frequencyR=1;
 
 int on_timeL=100; // in ms needs to be experimented
@@ -41,6 +41,12 @@ Serial.print (R_offset);
 }
 
 
+
+float mapfloat(float x, float in_min, float in_max, float out_min, float out_max)
+{
+ return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
 void loop(){
 
   //frequencyR=frequencyL; // synchronizer
@@ -48,24 +54,25 @@ void loop(){
 //  tempo=Serial.parseFloat();}
 
 
-//  if (Serial.read() == 'a') {
-//    // delay(1);
-//    a = Serial.parseInt();
-//    //Serial.println(a);
-//
-////     tempo= map(a.toFloat(),0,100,2.0,0.4);
-////  Serial.print("a: ");
-////  Serial.println(a);
-////  Serial.print("tempo : ");
-////  Serial.println(tempo);
-//
-//   
-//  }
+  if (Serial.read() == 'a') {
+    // delay(1);
+    a = Serial.parseInt();
+    //Serial.println(a);
+if (a>1){
+     tempo= mapfloat(a,0,100,2.0,0.7);
+  Serial.print("a: ");
+  Serial.println(a);
+  Serial.print("tempo : ");
+  Serial.println(tempo);
+}
+   
+  }
 
- 
+ //Serial.print(a);
 
  
   drumstickL(drumPinL, frequencyL, on_timeL, true,tempo);
+  //Serial.println(tempo);
 
   //if (millis() - lastDrumHitR>R_offset) {
     drumstickR(drumPinR, frequencyR, on_timeR, true, tempo);

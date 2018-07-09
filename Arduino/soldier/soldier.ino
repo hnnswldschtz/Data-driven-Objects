@@ -75,8 +75,8 @@ void loop()
 
 
     if (Serial.available()>0){
-  int angle= Serial.parseInt();
-  servo_rot.write(angle);
+   angle= Serial.parseInt();
+  
  input=1;
   Serial.println(angle);}
   
@@ -87,25 +87,25 @@ void loop()
      servo_rot.attach(10);
   servo_action.attach(11);
 
+ 
+  
+ 
+
 if (us_state==0) 
 {
-    
+
+   Serial.print("Angle in state: ");
+  Serial.println(angle);
+     servo_rot.write(angle);
     us_state=1;
      us_changeTime = millis();
      Serial.println("State zero");
   }
-   else  if (us_state == 1 && millis() - us_changeTime > 500) {
-  
-      servo_action.write(50);
-      us_state = 2;
-      us_changeTime = millis();
-      Serial.println("State one");
-     
-    }
+
     
-   else  if (us_state == 1 && millis() - us_changeTime > 500) {
+   else  if (us_state == 1 && millis() - us_changeTime > 600) {
   
-      servo_action.write(60);
+      servo_action.write(70);
       us_state = 2;
       us_changeTime = millis();
       Serial.println("State one");
@@ -113,13 +113,13 @@ if (us_state==0)
     }
     else if (us_state == 2 && millis() - us_changeTime > 500) {
       
-      servo_action.write(80);
+      servo_action.write(90);
       us_state = 3;
       us_changeTime = millis();
       Serial.println("State two");
     }
     else if (us_state == 3&& millis() - us_changeTime > 150) {
-      servo_action.write(60);
+      servo_action.write(70);
       us_state = 4;
       us_changeTime = millis();
         Serial.println("State three");
