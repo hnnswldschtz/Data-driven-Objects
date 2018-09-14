@@ -16,6 +16,10 @@ int on_timeL=100; // in ms needs to be experimented
 int on_timeR= 100;
 bool first=1;
 unsigned long lastDrumHitR=0;
+unsigned long timer=0;
+bool off= 0;
+int counter=0;
+
 
 //void drumstickL(int pinNr, int freq, int on_time, bool on=1);
 //void drumstickR(int pinNr, int freq, int on_time, bool on=1);
@@ -28,7 +32,7 @@ int a;
 
 void setup(){
 Serial.begin(9600);
-Serial.setTimeout(20);
+Serial.setTimeout(10);
 //pinMode(drumPinL, OUTPUT);
 //pinMode(drumPinR, OUTPUT);
 
@@ -54,12 +58,12 @@ void loop(){
 //  tempo=Serial.parseFloat();}
 
 
-  if (Serial.read() == 'a') {
+  if (Serial.read()) {
     // delay(1);
     a = Serial.parseInt();
     //Serial.println(a);
 if (a>1){
-     tempo= mapfloat(a,0,100,2.0,0.7);
+     tempo= mapfloat(a,0,100,2.0,0.6);
   Serial.print("a: ");
   Serial.println(a);
   Serial.print("tempo : ");
@@ -70,14 +74,42 @@ if (a>1){
 
  //Serial.print(a);
 
+
  
+
+   
+
+  // if (counter ==60)
+  //{
+
+  
+    //servo_0.write(162);
+  servo_0.detach(); 
+  //servo_1.write(69);
+servo_1.detach();
+    delay(15000);
+  counter = 0;
+
+  
+//}
+
+
+//if (counter==0){
+  servo_0.attach(3); 
+servo_1.attach(5); 
+  
+ // }
+
+  
+ // }
   drumstickL(drumPinL, frequencyL, on_timeL, true,tempo);
   //Serial.println(tempo);
+  
 
   //if (millis() - lastDrumHitR>R_offset) {
-    drumstickR(drumPinR, frequencyR, on_timeR, true, tempo);
+  drumstickR(drumPinR, frequencyR, on_timeR, true, tempo);
    // lastDrumHitR=millis();
- // }
+ 
 
 }
 
@@ -95,24 +127,30 @@ void drumstickL(int pinNr, int freq, int on_time, bool on,float tempo){
   if (on){
       if (drum_state==0 ){
         //digitalWrite(pinNr,HIGH);
-        servo_0.write(180);
+        servo_0.write(180); // the higher the angle is, 
         drum_state=1;
         drum_changeTime=millis();
         
       }
     else if (drum_state==1&&millis()-drum_changeTime>on_time){
       //digitalWrite(pinNr,LOW);
-       servo_0.write(140);
+       servo_0.write(152);
       drum_state=2;
+      
     }
       else if (drum_state==2&&millis()-drum_changeTime>full_cycle * tempo){
           drum_state=0;
+
+         // counter++;
       }
   }
+
+ 
 }
 
 
-void drumstickR(int pinNr, int freq, int on_time, bool on, float tempo){
+
+void drumstickR(int pinNr, int freq, int on_time, bool on,float tempo){
 
   static char drum_state=0;
   static unsigned long drum_changeTime=0;
@@ -120,17 +158,18 @@ void drumstickR(int pinNr, int freq, int on_time, bool on, float tempo){
 
 
   if (on){
-      if (drum_state==0 && millis() - lastDrumHitR>R_offset){
+      if (drum_state==0  ){
         //digitalWrite(pinNr,HIGH);
-         servo_1.write(180);
+        servo_1.write(67); // the higher the angle is, 
         drum_state=1;
         drum_changeTime=millis();
+
+        //lastDrumHitR=millis();
         
-        lastDrumHitR=millis();
       }
     else if (drum_state==1&&millis()-drum_changeTime>on_time){
       //digitalWrite(pinNr,LOW);
-      servo_1.write(140);
+       servo_1.write(95);
       drum_state=2;
     }
       else if (drum_state==2&&millis()-drum_changeTime>full_cycle * tempo){

@@ -47,9 +47,9 @@ void setup() {
   strcpy((char*)stationConf.ssid, ssid);
 
   wifi_station_set_config(&stationConf);
-  if(wifi_station_set_config(&stationConf))
-    Serial.println("Config success");
-  else Serial.println("Config error");
+//  if(wifi_station_set_config(&stationConf))
+//    return true;
+//  else return false;// Serial.println("Config error");
 
 //   // switch to WPA2 Enterprise 
    wifi_station_set_wpa2_enterprise_auth(1); 
@@ -104,18 +104,19 @@ void loop() {
       // HTTP header has been sent and Server response header has been handled
       // file found at server
 
-      //Serial.println("Http code more than 0");
+      Serial.println("Http code more than 0");
 
       
       if (httpCode == HTTP_CODE_OK) {
        payload = http.getString();
-       //Serial.println("Http code ok");
-       t12=getVal("12",payload);
-       t7=getVal("7",payload);
+       Serial.println("Http code ok");
+      // t12=getVal("12",payload);
+       //t7=getVal("7",payload);
+       String test=getVal("12",payload);
        Serial.print('a');
-       Serial.print(t12);
-       Serial.print('b');
-       Serial.print(t7);
+       Serial.print(test);
+       //Serial.print('b');
+       //Serial.print(t7);
 
        
        }
@@ -126,9 +127,9 @@ void loop() {
     http.end();
   }
   else{
-    Serial.println(WiFi.status());
+    //Serial.println(WiFi.status());
     delay(2000);
-    Serial.println("Not connected");
+    //Serial.println("Not connected");
     if (WiFi.status()==WL_NO_SSID_AVAIL)
       Serial.println("So ssid");
     }
@@ -143,27 +144,27 @@ void loop() {
 
 
 
-  if (millis()-delaytimeH> 150){
-    digitalWrite(LED_BUILTIN, HIGH); 
-    //digitalWrite(4, LOW); 
-    delaytimeH=millis();
-     if (millis()-delaytimeL> t12){
-      //Serial.println(t12);
-      digitalWrite(LED_BUILTIN, LOW); 
-     // digitalWrite(4, HIGH); 
-      delaytimeL=millis();
-      } 
-
-  }
+//  if (millis()-delaytimeH> 150){
+//    digitalWrite(LED_BUILTIN, HIGH); 
+//    //digitalWrite(4, LOW); 
+//    delaytimeH=millis();
+//     if (millis()-delaytimeL> t12){
+//      //Serial.println(t12);
+//      digitalWrite(LED_BUILTIN, LOW); 
+//     // digitalWrite(4, HIGH); 
+//      delaytimeL=millis();
+//      } 
+//
+//  }
   
 }
 
-int getVal(String id,String payload){
+String getVal(String id,String payload){
 
-        int ID_Index = payload.indexOf("TDRM."+id+"<");
-        int breakIndex = payload.indexOf("<b>",ID_Index);
-        int valIndex = breakIndex+3;
-        int valEndIndex = payload.indexOf("</b>",breakIndex);
+        int ID_Index = payload.indexOf("TDRM.12<");
+        int boldIndex = payload.indexOf("<b>",ID_Index);
+        int valIndex = boldIndex+3;
+        int valEndIndex = payload.indexOf("</b>",boldIndex);
         int valLength = valEndIndex-valIndex;
        
         String val="";
@@ -171,17 +172,21 @@ int getVal(String id,String payload){
           val+=payload.charAt(i);
         }
 
-        //Serial.print("TDRM."+id+" value is: ");
-        //Serial.println(val);
-
-        float floatVal=val.toFloat();
-        int floatPeriod=linear(floatVal,0,0.466,0,100);
+//        //Serial.print("id ind: ");
+//        Serial.println(ID_Index);
+//        Serial.print("bold ind: ");
+//        Serial.println(boldIndex);
+//        Serial.print("val end ind: ");
+//        Serial.println(valEndIndex);
+        int test=0;
+        //float floatVal=val.toFloat();
+        //int floatPeriod=linear(floatVal,0,0.466,0,100);
         
        // Serial.print("Delay: ");
         //Serial.print(floatPeriod);
         //Serial.println(" ms");
 
-        return floatPeriod;
+        return val;
 }
 
 float linear(float i, float imin, float imax, float omin, float omax)

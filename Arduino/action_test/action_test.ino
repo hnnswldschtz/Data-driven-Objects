@@ -1,4 +1,4 @@
-#include    <Servo.h>      //Servo library
+ #include    <Servo.h>      //Servo library
 #include "Arduino.h"
 #include <SoftwareSerial.h>
 
@@ -27,12 +27,12 @@ bool input;
 
 void setup()
 {
-  servo_rot.attach(10);
+  //servo_rot.attach(10);
  
-  servo_action.attach(11);
+  servo_action.attach(5);
 
   //servo_action.write(0);
-  servo_rot.write(20);
+  //servo_rot.write(20);
 
   Serial.begin(9600);
 
@@ -76,7 +76,8 @@ void loop()
 
 
     if (Serial.available()>0){
-      servo_action.attach(11);
+
+      //servo_action.attach(11);
   int angle= Serial.parseInt();
   servo_action.write(angle);
  input=1;

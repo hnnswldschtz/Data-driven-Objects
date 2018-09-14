@@ -27,11 +27,11 @@ bool input;
 
 void setup()
 {
-  servo_rot.attach(10);
-  servo_action.attach(11);
+  servo_rot.attach(2);
+  servo_action.attach(3);
 
   //servo_action.write(0);
-  servo_rot.write(0);
+  //servo_rot.write(0);
 
   Serial.begin(9600);
 
@@ -84,8 +84,8 @@ void loop()
 
    if (input)
    {
-     servo_rot.attach(10);
-  servo_action.attach(11);
+     servo_rot.attach(2);
+  servo_action.attach(3);
 
  
   
@@ -135,7 +135,7 @@ if (us_state==0)
       
 
     }
-    else  if (us_state==5 && millis() - us_changeTime > 1000){
+    else  if (us_state==5 && millis() - us_changeTime > 500){
         us_state = 0;
       Serial.println("State five");
     
