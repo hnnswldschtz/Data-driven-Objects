@@ -1,8 +1,8 @@
 
-const int drumPinL = 10;
-const int drumPinR = 11;
+const int drumPinL = 8;
+const int drumPinR = 9;
 
-const int errorPin = 9;
+const int errorPin = 10;
 
 bool error = 0;
 
@@ -14,9 +14,9 @@ float frequencyR = 1.0;
 
 int on_time ; // in ms needs to be experimented
 
-int on_long = 100;
+int on_long = 200;
 
-float on_short = 5;
+float on_short = 50;
 
 
 int counterR ;
@@ -80,7 +80,7 @@ void loop() {
         Serial.println(delta);
         prevVal = a;
 
-        if (abs(delta) >= 1)
+        if (abs(delta) >= 0.5)
         {
           Serial.print("Interpolate!!!");
           interpL = true;
@@ -96,10 +96,13 @@ void loop() {
           frequencyL = a;
           frequencyR = a;
 
+          R_offset = (1000 / frequencyL) / 2;
+          
+
         }
 
 
-        on_short = mapfloat(a, 1, 4, 1, 35);
+        //on_short = mapfloat(a, 1, 4, 1, 35);
         Serial.println(a);
 
         if (Serial.read() == 'b')
@@ -107,7 +110,9 @@ void loop() {
         {
           b = Serial.parseInt(); //value between 50-100 ms;
           Serial.println(b);
+          
           on_long = b;
+          //on_short = mapfloat(b, 100, 250, 100, 200);
         }
 
       }
@@ -118,7 +123,7 @@ void loop() {
 
 
 
-  R_offset = (1000 / frequencyL) / 2;
+  
   //Serial.print ("R_offset:  ");
   // Serial.println (R_offset);
 
@@ -129,34 +134,37 @@ void loop() {
 
 
   if (counterL >= 4) {
-    on_time = on_long;
+    //on_time = on_long;
     //counterL = 0;
   } else
-    on_time = on_short;
+    //on_time = on_short;
 
   //Serial.println(on_long);
 
   if (counterR >= 4) {
-    on_time = on_long;
+   // on_time = on_long;
     // counterR = 0;
   } else
-    on_time = on_short;
+   // on_time = on_short;
 
 
   if (!error) {
 
 
-    if (drumstickL(drumPinL, frequencyL, on_time))
+    if (drumstickL(drumPinL, frequencyL, on_long))
     {
-
-      Serial.println(frequencyL);
+      
+     
       if (interpL) {
+        R_offset = (1000 / frequencyL) / 2;
         if (delta > 0) {
           if (countInterpL < 5) {
             frequencyL = frequencyL + (abs(delta) / 5);
+            
             countInterpL++;
           } else
           {
+            frequencyL == a;
             countInterpL = 0;
             interpL = false;
 
@@ -167,10 +175,11 @@ void loop() {
 
           if (countInterpL < 5) {
             frequencyL = frequencyL - (abs(delta) / 5);
+           
             countInterpL++;
           } else
           {
-
+            frequencyL == a;
             countInterpL = 0;
             interpL = false;
 
@@ -179,16 +188,17 @@ void loop() {
 
         }
       } else {
-        frequencyL == a;
+        //frequencyL == a;
+        //R_offset = (1000 / frequencyL) / 2;
       }
 
     }
 
 
-    if (drumstickR(drumPinR, frequencyR, on_time))
+    if (drumstickR(drumPinR, frequencyR, on_long))
     {
-
       
+      Serial.println(frequencyR);
       if (interpR) {
         if (delta > 0) {
           if (countInterpR < 5) {
@@ -196,6 +206,7 @@ void loop() {
             countInterpR++;
           } else
           {
+            frequencyR == a;
             countInterpR = 0;
             interpR = false;
 
@@ -209,7 +220,7 @@ void loop() {
             countInterpR++;
           } else
           {
-
+            frequencyR == a;
             countInterpR = 0;
             interpR = false;
 
@@ -218,7 +229,7 @@ void loop() {
 
         }
       } else {
-        frequencyR == a;
+        
       }
 
     }
@@ -265,12 +276,12 @@ bool drumstickL(int pinNr, float freq, int on_time) {
   else if (drum_state == 2 && millis() - drum_changeTime > full_cycle ) {
     drum_state = 0;
 
-    if (on_time == on_long)
-      counterL = 0;
+//    if (on_time == on_long)
+//      counterL = 0;
 
 
 
-    counterL++;
+    //counterL++;
     return true;
   }
   return false;
@@ -304,10 +315,10 @@ bool drumstickR(int pinNr, float freq, int on_time) {
   else if (drum_state == 2 && millis() - drum_changeTime > full_cycle ) {
     drum_state = 0;
 
-    if (on_time == on_long)
-      counterR = 0;
+//    if (on_time == on_long)
+//      counterR = 0;
    
-    counterR++;
+   // counterR++;
 
     return true;
   }

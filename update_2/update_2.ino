@@ -178,7 +178,7 @@ void loop() {
 
 
           freq = mapfloat(first_valfloat, 0.0, 0.4, 1.0, 4.0);
-          on_time = mapfloat(second_valfloat, 0.0, 0.4, 50.0, 100.0);
+          on_time = mapfloat(second_valfloat, 0.0, 0.4, 80.0, 200.0);
 
           Serial.print('a');
           Serial.print(freq);
