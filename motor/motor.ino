@@ -62,7 +62,7 @@ void loop() {
       
       
 
-      a = Serial.parseFloat(); //value between 1-5 ms;
+      a = Serial.parseFloat(); //value between 3-6;
      
 
     
@@ -90,7 +90,7 @@ void loop() {
         if (Serial.read() == 'b')
 
         {
-          b = Serial.parseInt(); //value between 50-100 ms;
+          b = Serial.parseInt(); //value between 30-80 ms;
           Serial.println(b);
           on_long = b;
         }
