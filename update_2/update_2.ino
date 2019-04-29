@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
 #include <WiFi.h>
-#include <WiFiMulti.h>
+
 
 #include <HTTPClient.h>
 
@@ -72,7 +72,7 @@ const char* rootCACertificate = \
                                 "-----END CERTIFICATE-----\n";
 
 
-WiFiMulti WiFiMulti;
+
 
 void setup() {
 
