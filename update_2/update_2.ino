@@ -32,8 +32,8 @@ float second_valfloat;
 
 
 
-const char* ssid = "Anas";
-const char* password = "a1n2a3s4";
+const char* ssid = "Anas"; //GalerieEigenheim
+const char* password = "a1n2a3s4"; //eigenheim2013!
 
 const char* rootCACertificate = \
                                 "-----BEGIN CERTIFICATE-----\n" \
