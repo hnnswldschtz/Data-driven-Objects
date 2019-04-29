@@ -124,7 +124,7 @@ void loop() {
   }
   //************************************Fetch*******************************
   //delay(10000);
-  if (millis() - lastUpdate > 10000) {
+  if (millis() - lastUpdate > 60000) {
     lastUpdate = millis();
     HTTPClient http;
 
