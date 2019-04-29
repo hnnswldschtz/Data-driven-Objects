@@ -96,7 +96,7 @@ void setup() {
 
     Serial.print('a');
     Serial.print(-1);
-    Serial.print("wifi Dissconnected");
+    //Serial.print("wifi Dissconnected");
   }
 
 
@@ -116,7 +116,7 @@ void loop() {
     //delay(500);
     Serial.print('a');
     Serial.print(-1);
-    Serial.print("wifi Dissconnected");
+    //Serial.print("wifi Dissconnected");
     counter++;
     if (counter >= 30) { //30 seconds timeout - reset board
       ESP.restart();
@@ -194,7 +194,7 @@ void loop() {
 
         Serial.print('a');
         Serial.print(-1);
-        Serial.printf("[HTTPS] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
+        //Serial.printf("[HTTPS] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
       }
 
       http.end();
@@ -202,7 +202,7 @@ void loop() {
 
       Serial.print('a');
       Serial.print(-1);
-      Serial.printf("[HTTPS] Unable to connect\n");
+      //Serial.printf("[HTTPS] Unable to connect\n");
     }
 
 
