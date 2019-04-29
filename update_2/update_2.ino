@@ -32,8 +32,8 @@ float second_valfloat;
 
 
 
-const char* ssid = "KDG-7F7BC_RPT";
-const char* password = "AJscwWMFKa0K";
+const char* ssid = "Anas";
+const char* password = "a1n2a3s4";
 
 const char* rootCACertificate = \
                                 "-----BEGIN CERTIFICATE-----\n" \
@@ -179,7 +179,7 @@ void loop() {
 
 
 
-          freq = mapfloat(first_valfloat, 0.0, 0.4, 5.0, 6.0);
+          freq = mapfloat(first_valfloat, 0.0, 0.4, 3.0, 6.0);
           on_time = mapfloat(second_valfloat, 0.0, 0.4, 30.0, 80.0);
 
 

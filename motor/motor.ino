@@ -9,12 +9,12 @@ bool error = 0;
 int shift = 50; // in percent of the Left Drumsick Frequency/Perdiod
 int R_offset = 0;
 
-float frequencyL = 1.0; //in Hz approx range: 1 - 7
-float frequencyR = 1.0;
+float frequencyL = 6.0; //in Hz approx range: 1 - 7
+float frequencyR = 6.0;
 
 int on_time ; // in ms needs to be experimented
 
-int on_long = 100;
+int on_long = 70;
 
 //float on_short = 5;
 
@@ -46,6 +46,9 @@ void setup() {
   pinMode(drumPinL, OUTPUT);
   pinMode(drumPinR, OUTPUT);
   pinMode(errorPin, OUTPUT);
+
+
+  
 
 }
 
