@@ -75,7 +75,7 @@ void loop() {
       error=1;
       digitalWrite(errorPin, HIGH);
       Serial.println(a);
-      } else {
+      } else if (a>0) {
         
         error=0;
         digitalWrite(errorPin, LOW);
