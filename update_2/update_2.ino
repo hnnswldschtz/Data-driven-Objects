@@ -179,7 +179,7 @@ void loop() {
 
 
 
-          freq = mapfloat(first_valfloat, 0.0, 0.4, 3.0, 6.0);
+          freq = mapfloat(first_valfloat, 0.0, 0.4, 5.0, 6.0);
           on_time = mapfloat(second_valfloat, 0.0, 0.4, 30.0, 80.0);
 
 

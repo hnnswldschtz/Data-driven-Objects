@@ -172,17 +172,19 @@ void drumstickR(int pinNr, float freq, int on_time) {
   static char drum_state = 0;
   static unsigned long drum_changeTime = 0;
   int full_cycle = 1000 / freq;
-
+  drum_changeTime = lastDrumHitL + R_offset;
 
   if (drum_state == 0  ) {
     digitalWrite(pinNr, HIGH);
 
     drum_state = 1;
-    drum_changeTime = lastDrumHitL + R_offset;
+    
 
     
   }
   else if (drum_state == 1 && millis() - drum_changeTime > on_time) {
+    //Serial.print("drum_changeTime:  ");
+    //Serial.println(drum_changeTime);
     digitalWrite(pinNr, LOW);
     drum_state = 2;
   }
