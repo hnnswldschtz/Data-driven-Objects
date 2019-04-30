@@ -14,7 +14,7 @@ float frequencyR = 6.0;
 
 int on_time ; // in ms needs to be experimented
 
-int on_long = 80;
+int on_long = 50;
 
 
 
@@ -61,11 +61,7 @@ void loop() {
 
     if (Serial.read() == 'a') {
 
-      if (firstInput){
-      frequencyL=0;
-      frequencyR=0;
-      firstInput=0;
-      }
+    
       a = Serial.parseFloat(); //value between 1-5 ms;
 
 
@@ -76,7 +72,11 @@ void loop() {
         digitalWrite(errorPin, HIGH);
         Serial.println(a);
       } else if (a>0){
-
+          if (firstInput){
+      frequencyL=0;
+      frequencyR=0;
+      firstInput=0;
+      }
         error = 0;
         digitalWrite(errorPin, LOW);
         delta = a - prevVal;

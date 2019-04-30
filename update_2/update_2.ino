@@ -10,7 +10,7 @@ int counter = 0;
 
 float freq = 1;
 float on_time;
-
+boolean firstRun=true;
 
 unsigned long lastUpdate = 0;
 
@@ -32,8 +32,8 @@ float second_valfloat;
 
 
 
-const char* ssid = "Anas"; //GalerieEigenheim
-const char* password = "a1n2a3s4"; //eigenheim2013!
+const char* ssid = "GalerieEigenheim"; //GalerieEigenheim
+const char* password = "eigenheim2013 "; //eigenheim2013!
 
 const char* rootCACertificate = \
                                 "-----BEGIN CERTIFICATE-----\n" \
@@ -124,7 +124,8 @@ void loop() {
   }
   //************************************Fetch*******************************
   //delay(10000);
-  if (millis() - lastUpdate > 60000) {
+  if (millis() - lastUpdate > 60000 || firstRun) {
+    firstRun=false;
     lastUpdate = millis();
     HTTPClient http;
 
