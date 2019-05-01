@@ -4,7 +4,7 @@
 
 
 #include <HTTPClient.h>
-
+#include <base64.h>
 #include <WiFiClientSecure.h>
 int counter = 0;
 
@@ -34,6 +34,9 @@ float second_valfloat;
 
 const char* ssid = "GalerieEigenheim"; //GalerieEigenheim
 const char* password = "eigenheim2013 "; //eigenheim2013!
+
+String authUsername = "";
+String authPassword = "";
 
 const char* rootCACertificate = \
                                 "-----BEGIN CERTIFICATE-----\n" \
@@ -130,7 +133,10 @@ void loop() {
     HTTPClient http;
 
     //Serial.print("[HTTPS] begin...\n");
-    if (http.begin("https://tdrm.fiff.de/data/diagram/grab.php?stations=" + String(freqList[freqIndex]) + "," + String(on_timeList[on_timeIndex]))) { // HTTPS
+    http.begin("https://tdrm.fiff.de/data/grab/index.php?stations=" + String(freqList[freqIndex]) + "," + String(on_timeList[on_timeIndex])); // HTTPS
+    String auth = base64::encode(authUsername + ":" + authPassword);
+    http.addHeader("Authorization", "Basic " + auth);
+ 
 
       //Serial.print("[HTTPS] GET...\n");
       // start connection and send HTTP header
@@ -205,12 +211,7 @@ void loop() {
       }
 
       http.end();
-    } else {
-
-      Serial.print('a');
-      Serial.print(-1);
-      //Serial.printf("[HTTPS] Unable to connect\n");
-    }
+  
 
 
 
