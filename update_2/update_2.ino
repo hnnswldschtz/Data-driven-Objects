@@ -32,8 +32,8 @@ float second_valfloat;
 
 
 
-const char* ssid = "GalerieEigenheim"; //GalerieEigenheim
-const char* password = "eigenheim2013 "; //eigenheim2013!
+const char* ssid = ""; //
+const char* password = ""; //
 
 String authUsername = "";
 String authPassword = "";
